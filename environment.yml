@@ -1,0 +1,22 @@
+name: deposit-duration-gap
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python>=3.10
+  - pip
+  - numpy
+  - pandas
+  - pyarrow
+  - pyyaml
+  - scipy
+  - statsmodels
+  - scikit-learn
+  - matplotlib
+  - pillow
+  - seaborn
+  - plotly
+  - requests
+  - tqdm
+  - pip:
+      - -e .[all]

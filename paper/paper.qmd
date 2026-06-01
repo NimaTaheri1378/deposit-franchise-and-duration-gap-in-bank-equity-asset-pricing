@@ -1,0 +1,36 @@
+---
+title: "Deposit Franchise and Duration Gap in U.S. Bank Equities"
+format:
+  html:
+    toc: true
+execute:
+  echo: false
+---
+
+# Scope
+
+This file is a reproducible report scaffold for the project. It is not the
+manuscript draft; the user explicitly deferred manuscript writing. The build
+pipeline instead renders public-safe manifests, table inventories, and figure
+links so the empirical package can be audited before prose is written.
+
+# Research Question
+
+Do point-in-time bank balance-sheet duration exposure and deposit-franchise
+fragility define a priced, state-dependent source of expected return in U.S.
+bank equities?
+
+# Reproducibility Contract
+
+- Regulatory features are activated only after the configured public-information
+  lag.
+- Raw WRDS data and licensed extracts are never committed.
+- Headline metrics must come from walk-forward out-of-sample predictions.
+- Visuals are checked both by automated audit and by manual inspection before
+  public release.
+
+# Generated Outputs
+
+The `make paper` target writes an HTML report from
+`data_manifest/full_live_public_summary.json` when full-run artifacts are
+available.

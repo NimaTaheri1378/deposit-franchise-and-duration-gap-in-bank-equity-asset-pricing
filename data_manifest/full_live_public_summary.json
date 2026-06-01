@@ -1,0 +1,225 @@
+{
+  "extract_rows": {
+    "bank_link": 1495,
+    "bank_quarterly": 33229,
+    "call_quarterly": 31687,
+    "factors_monthly": 264,
+    "holding_quarterly": 30182,
+    "macro_monthly": 264,
+    "relationships": 12330,
+    "stock_monthly": 122644
+  },
+  "fama_macbeth": [
+    {
+      "mean_coef": 0.0138557217446542,
+      "months": 252,
+      "nw_se": 0.0087379757063864,
+      "t_stat": 1.5856901197982514,
+      "term": "const"
+    },
+    {
+      "mean_coef": -0.0136771316724958,
+      "months": 252,
+      "nw_se": 0.003270470208545,
+      "t_stat": -4.182007723770196,
+      "term": "duration_gap_proxy"
+    },
+    {
+      "mean_coef": -0.0021008122678877,
+      "months": 252,
+      "nw_se": 0.0013315566097286,
+      "t_stat": -1.5777115689552106,
+      "term": "deposit_fragility_index"
+    },
+    {
+      "mean_coef": 0.0081379328581467,
+      "months": 252,
+      "nw_se": 0.0070863445994113,
+      "t_stat": 1.1483964326011946,
+      "term": "duration_x_uninsured"
+    },
+    {
+      "mean_coef": -0.0009163981326898,
+      "months": 252,
+      "nw_se": 0.0005021382925055,
+      "t_stat": -1.8249915339404572,
+      "term": "log_market_cap"
+    },
+    {
+      "mean_coef": 0.0306638800287956,
+      "months": 252,
+      "nw_se": 0.0235607692950993,
+      "t_stat": 1.3014804247148986,
+      "term": "capital_ratio"
+    },
+    {
+      "mean_coef": -0.0017146783238477,
+      "months": 252,
+      "nw_se": 0.0020210926699288,
+      "t_stat": -0.8483917384689346,
+      "term": "cre_to_assets"
+    },
+    {
+      "mean_coef": 0.003322070247601,
+      "months": 252,
+      "nw_se": 0.0021874258327916,
+      "t_stat": 1.5187121765684315,
+      "term": "market_beta"
+    }
+  ],
+  "feature_store": {
+    "lag_days": 45,
+    "month_max": "2025-11-30",
+    "month_min": "2004-05-31",
+    "permnos": 839,
+    "rows": 96634
+  },
+  "kind": "public_result_summary",
+  "model_metrics": {
+    "elastic_net": {
+      "mean_spearman_ic": 0.05346473051732084,
+      "median_spearman_ic": 0.028071503385356,
+      "test_years": 9
+    },
+    "ft_transformer": {
+      "mean_spearman_ic": 0.0269705756197973,
+      "median_spearman_ic": 0.0350080114023518,
+      "test_years": 9
+    },
+    "lightgbm": {
+      "mean_spearman_ic": 0.15030540849020468,
+      "median_spearman_ic": 0.1353564355596765,
+      "test_years": 9
+    }
+  },
+  "portfolio_summary": [
+    {
+      "ann_return": 0.1021721244053446,
+      "ann_vol": 0.0597322458643317,
+      "avg_abs_beta_exposure": 0.0217006517346351,
+      "avg_cost": 0.0056037589184018,
+      "avg_max_abs_weight": 0.0206246648656332,
+      "avg_trade_cost_bps": 22.51798984145473,
+      "avg_turnover": 2.49679306703252,
+      "calmar": 1.5196591403969535,
+      "hit_rate": 0.6635514018691588,
+      "max_drawdown": -0.0672335800110122,
+      "mean_monthly": 0.0081398575626367,
+      "months": 107,
+      "series": "gross_ret",
+      "sharpe": 1.635269013214321,
+      "sortino": 3.186758635051198,
+      "vol_monthly": 0.0172432141145364
+    },
+    {
+      "ann_return": 0.0308612914167067,
+      "ann_vol": 0.0593645802426033,
+      "avg_abs_beta_exposure": 0.0217006517346351,
+      "avg_cost": 0.0056037589184018,
+      "avg_max_abs_weight": 0.0206246648656332,
+      "avg_trade_cost_bps": 22.51798984145473,
+      "avg_turnover": 2.49679306703252,
+      "calmar": 0.2356163367146945,
+      "hit_rate": 0.4766355140186916,
+      "max_drawdown": -0.1309811189114463,
+      "mean_monthly": 0.0025360986442348,
+      "months": 107,
+      "series": "net_ret",
+      "sharpe": 0.5126488489676497,
+      "sortino": 0.9918110479584012,
+      "vol_monthly": 0.017137078191698
+    }
+  ],
+  "signal_spread_robustness": [
+    {
+      "mean_monthly_spread": -0.0052310418456204,
+      "months": 259,
+      "nw_se": 0.0014337614396158,
+      "signal": "duration_gap_proxy",
+      "t_stat": -3.648474356390772,
+      "test": "signal_spread",
+      "weighting": "equal"
+    },
+    {
+      "mean_monthly_spread": -0.0042401670272252,
+      "months": 259,
+      "nw_se": 0.0026812167637973,
+      "signal": "duration_gap_proxy",
+      "t_stat": -1.5814338790049762,
+      "test": "signal_spread",
+      "weighting": "value"
+    },
+    {
+      "mean_monthly_spread": -0.0018450550408546,
+      "months": 259,
+      "nw_se": 0.0010887997964877,
+      "signal": "deposit_fragility_index",
+      "t_stat": -1.6945769523529222,
+      "test": "signal_spread",
+      "weighting": "equal"
+    },
+    {
+      "mean_monthly_spread": -0.0044247432573883,
+      "months": 259,
+      "nw_se": 0.0017364547364096,
+      "signal": "deposit_fragility_index",
+      "t_stat": -2.548147766026524,
+      "test": "signal_spread",
+      "weighting": "value"
+    },
+    {
+      "mean_monthly_spread": -0.0018285341592005,
+      "months": 259,
+      "nw_se": 0.0010099916144296,
+      "signal": "duration_x_uninsured",
+      "t_stat": -1.810444891894664,
+      "test": "signal_spread",
+      "weighting": "equal"
+    },
+    {
+      "mean_monthly_spread": -0.0047083419917165,
+      "months": 259,
+      "nw_se": 0.0020589317816108,
+      "signal": "duration_x_uninsured",
+      "t_stat": -2.286788728878135,
+      "test": "signal_spread",
+      "weighting": "value"
+    },
+    {
+      "mean_monthly_spread": -0.0020504628623852,
+      "months": 259,
+      "nw_se": 0.0013917361003252,
+      "signal": "duration_x_fragility",
+      "t_stat": -1.4733129807483556,
+      "test": "signal_spread",
+      "weighting": "equal"
+    },
+    {
+      "mean_monthly_spread": -0.0025647717884879,
+      "months": 259,
+      "nw_se": 0.0023825137211451,
+      "signal": "duration_x_fragility",
+      "t_stat": -1.0764982235885108,
+      "test": "signal_spread",
+      "weighting": "value"
+    }
+  ],
+  "visual_audit": {
+    "figures": 11,
+    "passed": 11
+  },
+  "wrds_tables": [
+    "bank_all.wrds_bank_crsp_link",
+    "bank_all.wrds_call_rcon_1",
+    "bank_all.wrds_call_rcon_2",
+    "bank_all.wrds_call_rcfd_1",
+    "bank_all.wrds_call_rcfd_2",
+    "bank_all.wrds_call_rcoa_1",
+    "bank_all.wrds_call_rcfa_1",
+    "bank_all.wrds_call_rcfw_1",
+    "crsp_a_stock.msf_v2",
+    "crsp_a_treasuries.fbyld",
+    "cboe_all.cboe",
+    "ff_all.factors_monthly"
+  ]
+}

@@ -1,0 +1,56 @@
+project:
+  name: deposit_duration_gap
+  sample_start: "2004-01-01"
+  main_sample_end: "2025-12-31"
+  final_holdout_start: "2026-01-01"
+  public_information_lag_days: 45
+  lag_robustness_days: [30, 45, 60]
+
+paths:
+  local_root: "."
+  amarel_root: "/scratch/nt612/Github/Deposit Franchise and Duration Gap in Bank Equity Asset Pricing"
+  raw_data: "data/raw"
+  processed_data: "data/processed"
+  artifacts: "artifacts"
+  logs: "logs"
+  manifests: "data_manifest"
+
+wrds:
+  max_connections_schema: 1
+  max_connections_extract: 2
+  stop_on_auth_error: true
+  candidate_libraries:
+    - bank_all
+    - comp_bank_daily
+    - crsp_a_stock
+    - crsp_a_ccm
+    - crsp_a_treasuries
+    - frb_all
+    - ff_all
+    - cboe_all
+    - optionm_all
+
+universe:
+  share_codes: [10, 11]
+  exchange_codes: [1, 2, 3]
+  min_price: 5.0
+  min_market_cap_millions: 50.0
+  bank_sic_prefixes: ["60", "61"]
+
+modeling:
+  target: next_month_excess_ret
+  rebalance_frequency: monthly
+  train_start_year: 2004
+  first_test_year: 2017
+  last_test_year: 2025
+  validation_years: 2
+  tuning_trials: 8
+  random_seed: 1378
+  use_gpu: true
+
+backtest:
+  long_quantile: 0.8
+  short_quantile: 0.2
+  max_name_weight: 0.05
+  one_way_cost_bps: 20.0
+  beta_neutral: true

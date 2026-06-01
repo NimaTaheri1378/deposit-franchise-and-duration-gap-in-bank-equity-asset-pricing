@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite it as below."
+title: "Deposit Franchise and Duration Gap in U.S. Bank Equities"
+authors:
+  - family-names: "Taheri Hosseinkhani"
+    given-names: "Nima"
+type: software
+version: "0.1.0"
+date-released: "2026-06-01"
+repository-code: "https://github.com/nimataheri/Deposit-Franchise-and-Duration-Gap-in-Bank-Equity-Asset-Pricing"
+abstract: "Point-in-time bank regulatory data, asset-pricing tests, ML models, and implementation-aware backtests for U.S. bank equities."

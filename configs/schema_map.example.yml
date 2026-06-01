@@ -1,0 +1,16 @@
+generated_at: null
+status: example
+libraries:
+  bank_all:
+    available: null
+    role: bank_regulatory_base
+    selected_tables: {}
+  crsp_a_stock:
+    available: null
+    role: equity_returns
+    selected_tables: {}
+  crsp_a_ccm:
+    available: null
+    role: crsp_compustat_link
+    selected_tables: {}
+

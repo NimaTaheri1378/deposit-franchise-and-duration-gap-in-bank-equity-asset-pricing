@@ -1,0 +1,61 @@
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pgpass
+pgpass*
+
+# Local planning briefs
+Deposit Franchise and Duration Gap in Bank Equity Asset Pricing.md
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+*.egg-info/
+
+# Research data and licensed artifacts
+data/
+raw/
+processed/
+cache/
+artifacts/
+logs/
+*.parquet
+*.feather
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+*.joblib
+*.pt
+*.pth
+*.onnx
+
+# Generated outputs that may contain licensed-derived results
+figures/static/*
+figures/interactive/*
+data_manifest/*
+!figures/static/.gitkeep
+!figures/interactive/.gitkeep
+!data_manifest/.gitkeep
+!figures/static/*.png
+!figures/static/*.pdf
+!figures/static/*.svg
+!figures/interactive/*.html
+!data_manifest/*_public_summary.json
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

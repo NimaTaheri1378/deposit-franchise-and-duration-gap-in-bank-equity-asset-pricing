@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Deposit Franchise and Duration Gap</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem auto; max-width: 980px; line-height: 1.45; }
+    code, pre { background: #f5f5f5; padding: 0.1rem 0.25rem; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ddd; padding: 0.35rem; text-align: left; }
+  </style>
+</head>
+<body>
+  <h1>Deposit Franchise and Duration Gap in U.S. Bank Equities</h1>
+  <p>This is a reproducible report scaffold generated from public-safe manifests.
+  Full manuscript prose is intentionally kept out of this build step.</p>
+  <h2>Frozen Sample</h2>
+  <ul>
+    <li>Rows: 96634</li>
+    <li>PERMNOs: 839</li>
+    <li>Months: 2004-05-31 to 2025-11-30</li>
+    <li>Public-information lag: 45 days</li>
+    <li>Visual audit: 11 / 11 passed</li>
+  </ul>
+  <h2>Manifest Snapshot</h2>
+  <pre>{
+  &quot;extract_rows&quot;: {
+    &quot;bank_link&quot;: 1495,
+    &quot;bank_quarterly&quot;: 33229,
+    &quot;call_quarterly&quot;: 31687,
+    &quot;factors_monthly&quot;: 264,
+    &quot;holding_quarterly&quot;: 30182,
+    &quot;macro_monthly&quot;: 264,
+    &quot;relationships&quot;: 12330,
+    &quot;stock_monthly&quot;: 122644
+  },
+  &quot;fama_macbeth&quot;: [
+    {
+      &quot;mean_coef&quot;: 0.0138557217446542,
+      &quot;months&quot;: 252,
+      &quot;nw_se&quot;: 0.0087379757063864,
+      &quot;t_stat&quot;: 1.5856901197982514,
+      &quot;term&quot;: &quot;const&quot;
+    },
+    {
+      &quot;mean_coef&quot;: -0.0136771316724958,
+      &quot;months&quot;: 252,
+      &quot;nw_se&quot;: 0.003270470208545,
+      &quot;t_stat&quot;: -4.182007723770196,
+      &quot;term&quot;: &quot;duration_gap_proxy&quot;
+    },
+    {
+      &quot;mean_coef&quot;: -0.0021008122678877,
+      &quot;months&quot;: 252,
+      &quot;nw_se&quot;: 0.0013315566097286,
+      &quot;t_stat&quot;: -1.5777115689552106,
+      &quot;term&quot;: &quot;deposit_fragility_index&quot;
+    },
+    {
+      &quot;mean_coef&quot;: 0.0081379328581467,
+      &quot;months&quot;: 252,
+      &quot;nw_se&quot;: 0.0070863445994113,
+      &quot;t_stat&quot;: 1.1483964326011946,
+      &quot;term&quot;: &quot;duration_x_uninsured&quot;
+    },
+    {
+      &quot;mean_coef&quot;: -0.0009163981326898,
+      &quot;months&quot;: 252,
+      &quot;nw_se&quot;: 0.0005021382925055,
+      &quot;t_stat&quot;: -1.8249915339404572,
+      &quot;term&quot;: &quot;log_market_cap&quot;
+    },
+    {
+      &quot;mean_coef&quot;: 0.0306638800287956,
+      &quot;months&quot;: 252,
+      &quot;nw_se&quot;: 0.0235607692950993,
+      &quot;t_stat&quot;: 1.3014804247148986,
+      &quot;term&quot;: &quot;capital_ratio&quot;
+    },
+    {
+      &quot;mean_coef&quot;: -0.0017146783238477,
+      &quot;months&quot;: 252,
+      &quot;nw_se&quot;: 0.0020210926699288,
+      &quot;t_stat&quot;: -0.8483917384689346,
+      &quot;term&quot;: &quot;cre_to_assets&quot;
+    },
+    {
+      &quot;mean_coef&quot;: 0.003322070247601,
+      &quot;months&quot;: 252,
+      &quot;nw_se&quot;: 0.0021874258327916,
+      &quot;t_stat&quot;: 1.5187121765684315,
+      &quot;term&quot;: &quot;market_beta&quot;
+    }
+  ],
+  &quot;feature_store&quot;: {
+    &quot;lag_days&quot;: 45,
+    &quot;month_max&quot;: &quot;2025-11-30&quot;,
+    &quot;month_min&quot;: &quot;2004-05-31&quot;,
+    &quot;permnos&quot;: 839,
+    &quot;rows&quot;: 96634
+  },
+  &quot;kind&quot;: &quot;public_result_summary&quot;,
+  &quot;model_metrics&quot;: {
+    &quot;elastic_net&quot;: {
+      &quot;mean_spearman_ic&quot;: 0.05346473051732084,
+      &quot;median_spearman_ic&quot;: 0.028071503385356,
+      &quot;test_years&quot;: 9
+    },
+    &quot;ft_transformer&quot;: {
+      &quot;mean_spearman_ic&quot;: 0.0269705756197973,
+      &quot;median_spearman_ic&quot;: 0.0350080114023518,
+      &quot;test_years&quot;: 9
+    },
+    &quot;lightgbm&quot;: {
+      &quot;mean_spearman_ic&quot;: 0.15030540849020468,
+      &quot;median_spearman_ic&quot;: 0.1353564355596765,
+      &quot;test_years&quot;: 9
+    }
+  },
+  &quot;portfolio_summary&quot;: [
+    {
+      &quot;ann_return&quot;: 0.1021721244053446,
+      &quot;ann_vol&quot;: 0.0597322458643317,
+      &quot;avg_abs_beta_exposure&quot;: 0.0217006517346351,
+      &quot;avg_cost&quot;: 0.0056037589184018,
+      &quot;avg_max_abs_weight&quot;: 0.0206246648656332,
+      &quot;avg_trade_cost_bps&quot;: 22.51798984145473,
+      &quot;avg_turnover&quot;: 2.49679306703252,
+      &quot;calmar&quot;: 1.5196591403969535,
+      &quot;hit_rate&quot;: 0.6635514018691588,
+      &quot;max_drawdown&quot;: -0.0672335800110122,
+      &quot;mean_monthly&quot;: 0.0081398575626367,
+      &quot;months&quot;: 107,
+      &quot;series&quot;: &quot;gross_ret&quot;,
+      &quot;sharpe&quot;: 1.635269013214321,
+      &quot;sortino&quot;: 3.186758635051198,
+      &quot;vol_monthly&quot;: 0.0172432141145364
+    },
+    {
+      &quot;ann_return&quot;: 0.0308612914167067,
+      &quot;ann_vol&quot;: 0.0593645802426033,
+      &quot;avg_abs_beta_exposure&quot;: 0.0217006517346351,
+      &quot;avg_cost&quot;: 0.0056037589184018,
+      &quot;avg_max_abs_weight&quot;: 0.0206246648656332,
+      &quot;avg_trade_cost_bps&quot;: 22.51798984145473,
+      &quot;avg_turnover&quot;: 2.49679306703252,
+      &quot;calmar&quot;: 0.2356163367146945,
+      &quot;hit_rate&quot;: 0.4766355140186916,
+      &quot;max_drawdown&quot;: -0.1309811189114463,
+      &quot;mean_monthly&quot;: 0.0025360986442348,
+      &quot;months&quot;: 107,
+      &quot;series&quot;: &quot;net_ret&quot;,
+      &quot;sharpe&quot;: 0.5126488489676497,
+      &quot;sortino&quot;: 0.9918110479584012,
+      &quot;vol_monthly&quot;: 0.017137078191698
+    }
+  ],
+  &quot;signal_spread_robustness&quot;: [
+    {
+      &quot;mean_monthly_spread&quot;: -0.0052310418456204,
+      &quot;months&quot;: 259,
+      &quot;nw_se&quot;: 0.0014337614396158,
+      &quot;signal&quot;: &quot;duration_gap_proxy&quot;,
+      &quot;t_stat&quot;: -3.648474356390772,
+      &quot;test&quot;: &quot;signal_spread&quot;,
+      &quot;weighting&quot;: &quot;equal&quot;
+    },
+    {
+      &quot;mean_monthly_spread&quot;: -0.0042401670272252,
+      &quot;months&quot;: 259,
+      &quot;nw_se&quot;: 0.0026812167637973,
+      &quot;signal&quot;: &quot;duration_gap_proxy&quot;,
+      &quot;t_stat&quot;: -1.5814338790049762,
+      &quot;test&quot;: &quot;signal_spread&quot;,
+      &quot;weighting&quot;: &quot;value&quot;
+    },
+    {
+      &quot;mean_monthly_spread&quot;: -0.0018450550408546,
+      &quot;months&quot;: 259,
+      &quot;nw_se&quot;: 0.0010887997964877,
+      &quot;signal&quot;: &quot;deposit_fragility_index&quot;,
+      &quot;t_stat&quot;: -1.6945769523529222,
+      &quot;test&quot;: &quot;signal_spread&quot;,
+      &quot;weighting&quot;: &quot;equal&quot;
+    },
+    {
+      &quot;mean_monthly_spread&quot;: -0.0044247432573883,
+      &quot;months&quot;: 259,
+      &quot;nw_se&quot;: 0.0017364547364096,
+      &quot;signal&quot;: &quot;deposit_fragility_index&quot;,
+      &quot;t_stat&quot;: -2.548147766026524,
+      &quot;test&quot;: &quot;signal_spread&quot;,
+      &quot;weighting&quot;: &quot;value&quot;
+    },
+    {
+      &quot;mean_monthly_spread&quot;: -0.0018285341592005,
+      &quot;months&quot;: 259,
+      &quot;nw_se&quot;: 0.0010099916144296,
+      &quot;signal&quot;: &quot;duration_x_uninsured&quot;,
+      &quot;t_stat&quot;: -1.810444891894664,
+      &quot;test&quot;: &quot;signal_spread&quot;,
+      &quot;weighting&quot;: &quot;equal&quot;
+    },
+    {
+      &quot;mean_monthly_spread&quot;: -0.0047083419917165,
+      &quot;months&quot;: 259,
+      &quot;nw_se&quot;: 0.0020589317816108,
+      &quot;signal&quot;: &quot;duration_x_uninsured&quot;,
+      &quot;t_stat&quot;: -2.286788728878135,
+      &quot;test&quot;: &quot;signal_spread&quot;,
+      &quot;weighting&quot;: &quot;value&quot;
+    },
+    {
+      &quot;mean_monthly_spread&quot;: -0.0020504628623852,
+      &quot;months&quot;: 259,
+      &quot;nw_se&quot;: 0.0013917361003252,
+      &quot;signal&quot;: &quot;duration_x_fragility&quot;,
+      &quot;t_stat&quot;: -1.4733129807483556,
+      &quot;test&quot;: &quot;signal_spread&quot;,
+      &quot;weighting&quot;: &quot;equal&quot;
+    },
+    {
+      &quot;mean_monthly_spread&quot;: -0.0025647717884879,
+      &quot;months&quot;: 259,
+      &quot;nw_se&quot;: 0.0023825137211451,
+      &quot;signal&quot;: &quot;duration_x_fragility&quot;,
+      &quot;t_stat&quot;: -1.0764982235885108,
+      &quot;test&quot;: &quot;signal_spread&quot;,
+      &quot;weighting&quot;: &quot;value&quot;
+    }
+  ],
+  &quot;visual_audit&quot;: {
+    &quot;figures&quot;: 11,
+    &quot;passed&quot;: 11
+  },
+  &quot;wrds_tables&quot;: [
+    &quot;bank_all.wrds_bank_crsp_link&quot;,
+    &quot;bank_all.wrds_call_rcon_1&quot;,
+    &quot;bank_all.wrds_call_rcon_2&quot;,
+    &quot;bank_all.wrds_call_rcfd_1&quot;,
+    &quot;bank_all.wrds_call_rcfd_2&quot;,
+    &quot;bank_all.wrds_call_rcoa_1&quot;,
+    &quot;bank_all.wrds_call_rcfa_1&quot;,
+    &quot;bank_all.wrds_call_rcfw_1&quot;,
+    &quot;crsp_a_stock.msf_v2&quot;,
+    &quot;crsp_a_treasuries.fbyld&quot;,
+    &quot;cboe_all.cboe&quot;,
+    &quot;ff_all.factors_monthly&quot;
+  ]
+}</pre>
+</body>
+</html>

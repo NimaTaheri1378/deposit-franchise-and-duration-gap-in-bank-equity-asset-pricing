@@ -1,0 +1,38 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main, dev]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[all]"
+      - name: Lint
+        run: python -m ruff check src tests scripts
+      - name: Tests
+        run: python -m pytest -q
+      - name: Synthetic smoke
+        run: ddgap smoke --out-dir artifacts/ci_smoke
+      - name: Public-safe summary
+        run: |
+          python scripts/summarize_artifacts.py --artifacts-dir artifacts/ci_smoke --out data_manifest/ci_smoke_public_summary.json
+          python scripts/build_report.py --summary data_manifest/ci_smoke_public_summary.json --out artifacts/reports/paper.html
+          python scripts/build_docs.py --out-dir artifacts/site
+      - name: Upload smoke artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-smoke-artifacts
+          path: |
+            artifacts/ci_smoke/figures
+            artifacts/reports/paper.html
+            artifacts/site
