@@ -25,6 +25,7 @@ row counts, date ranges, and output paths.
 | Econometrics | `ddgap econometrics` | Fama-MacBeth and sort tables |
 | Events | `ddgap events` | March 2023 CARs and local projections |
 | Robustness | `ddgap robustness` | placebo, state, subperiod, double-sort checks |
+| Public gates | `ddgap public-gates` | large/liquid robustness and incremental prediction checks |
 | ML | `ddgap train` | walk-forward predictions and metrics |
 | Interpretation | `ddgap interpret`, `ddgap ipca` | SHAP, PDP, family importance, factor layer |
 | Backtest | `ddgap backtest` | portfolio returns, weights, costs, factor alpha |
@@ -41,6 +42,7 @@ row counts, date ranges, and output paths.
 - Default public-information lag: 45 days.
 - Robustness lag variants: 30, 45, and 60 days.
 - Main inference: time-series standard errors over monthly slopes or spreads.
+- Pre-public evidence gates: large/liquid bank-month sample and fixed nonlinear group-ablation models comparing macro/market, bank-balance, and full feature sets.
 
 ## Visual QA
 

@@ -130,6 +130,175 @@
       "vol_monthly": 0.017137078191698
     }
   ],
+  "public_push_gates": {
+    "incremental_prediction": [
+      {
+        "decile_spread_months": 107,
+        "decile_spread_nw_se": 0.0034572949676609,
+        "decile_spread_t_stat": 2.408625673685675,
+        "feature_group": "full",
+        "mean_decile_10_minus_1": 0.0083273294206125,
+        "mean_feature_count": 26.0,
+        "mean_spearman_ic": 0.0383206607062558,
+        "median_spearman_ic": 0.0765010401493982,
+        "test_years": 9
+      },
+      {
+        "decile_spread_months": 107,
+        "decile_spread_nw_se": 0.0032759801946335,
+        "decile_spread_t_stat": 2.664889068874972,
+        "feature_group": "macro_market",
+        "mean_decile_10_minus_1": 0.0087301238105299,
+        "mean_feature_count": 11.0,
+        "mean_spearman_ic": 0.0265998909990135,
+        "median_spearman_ic": 0.0407536718070822,
+        "test_years": 9
+      },
+      {
+        "decile_spread_months": 107,
+        "decile_spread_nw_se": 0.0025139193215585,
+        "decile_spread_t_stat": 0.1828938043064747,
+        "feature_group": "bank_balance",
+        "mean_decile_10_minus_1": 0.0004597802684393,
+        "mean_feature_count": 10.0,
+        "mean_spearman_ic": 0.0117311923009741,
+        "median_spearman_ic": 0.0070299390432561,
+        "test_years": 9
+      }
+    ],
+    "large_liquid_fama_macbeth": [
+      {
+        "mean_coef": 0.009384184009516,
+        "months": 252,
+        "nw_se": 0.0092120704847779,
+        "t_stat": 1.0186834789228432,
+        "term": "const"
+      },
+      {
+        "mean_coef": -0.0097669230859736,
+        "months": 252,
+        "nw_se": 0.0032920503685868,
+        "t_stat": -2.966820671752392,
+        "term": "duration_gap_proxy"
+      },
+      {
+        "mean_coef": -0.0022308304158899,
+        "months": 252,
+        "nw_se": 0.0011496257569299,
+        "t_stat": -1.94048402485988,
+        "term": "deposit_fragility_index"
+      },
+      {
+        "mean_coef": 0.0064756984062683,
+        "months": 252,
+        "nw_se": 0.0072844374969244,
+        "t_stat": 0.8889771391411474,
+        "term": "duration_x_uninsured"
+      },
+      {
+        "mean_coef": -0.0004578688510405,
+        "months": 252,
+        "nw_se": 0.0005468335407981,
+        "t_stat": -0.8373093764005469,
+        "term": "log_market_cap"
+      },
+      {
+        "mean_coef": 0.0089376092717014,
+        "months": 252,
+        "nw_se": 0.0185439131026857,
+        "t_stat": 0.4819699716133276,
+        "term": "capital_ratio"
+      },
+      {
+        "mean_coef": -0.0049789389138476,
+        "months": 252,
+        "nw_se": 0.0027194704982836,
+        "t_stat": -1.830848658586324,
+        "term": "cre_to_assets"
+      },
+      {
+        "mean_coef": 0.0035615127670379,
+        "months": 252,
+        "nw_se": 0.0023578687454017,
+        "t_stat": 1.5104796541298378,
+        "term": "market_beta"
+      }
+    ],
+    "large_liquid_signal_spreads": [
+      {
+        "mean_monthly_spread": -0.004179814353276,
+        "months": 259,
+        "nw_se": 0.0012518201245631,
+        "signal": "duration_gap_proxy",
+        "t_stat": -3.33898958105888,
+        "test": "signal_spread",
+        "weighting": "equal"
+      },
+      {
+        "mean_monthly_spread": -0.0056907899991602,
+        "months": 259,
+        "nw_se": 0.0027161895802807,
+        "signal": "duration_gap_proxy",
+        "t_stat": -2.095137261579514,
+        "test": "signal_spread",
+        "weighting": "value"
+      },
+      {
+        "mean_monthly_spread": -0.0026387426089546,
+        "months": 259,
+        "nw_se": 0.0011520451173263,
+        "signal": "deposit_fragility_index",
+        "t_stat": -2.290485476019036,
+        "test": "signal_spread",
+        "weighting": "equal"
+      },
+      {
+        "mean_monthly_spread": -0.0028050658871394,
+        "months": 259,
+        "nw_se": 0.0017552162819078,
+        "signal": "deposit_fragility_index",
+        "t_stat": -1.5981311910406852,
+        "test": "signal_spread",
+        "weighting": "value"
+      },
+      {
+        "mean_monthly_spread": -0.0021583993438732,
+        "months": 259,
+        "nw_se": 0.0010435060647971,
+        "signal": "duration_x_uninsured",
+        "t_stat": -2.0684109241787203,
+        "test": "signal_spread",
+        "weighting": "equal"
+      },
+      {
+        "mean_monthly_spread": -0.0028887387573249,
+        "months": 259,
+        "nw_se": 0.0021299116691428,
+        "signal": "duration_x_uninsured",
+        "t_stat": -1.356271623455394,
+        "test": "signal_spread",
+        "weighting": "value"
+      },
+      {
+        "mean_monthly_spread": -0.003311865743602,
+        "months": 259,
+        "nw_se": 0.001382886506975,
+        "signal": "duration_x_fragility",
+        "t_stat": -2.394893381993099,
+        "test": "signal_spread",
+        "weighting": "equal"
+      },
+      {
+        "mean_monthly_spread": -0.003877937163562,
+        "months": 259,
+        "nw_se": 0.0028611044519574,
+        "signal": "duration_x_fragility",
+        "t_stat": -1.3553986681293693,
+        "test": "signal_spread",
+        "weighting": "value"
+      }
+    ]
+  },
   "signal_spread_robustness": [
     {
       "mean_monthly_spread": -0.0052310418456204,

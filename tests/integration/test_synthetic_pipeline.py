@@ -12,6 +12,7 @@ from deposit_duration.data.synthetic import make_synthetic_raw
 from deposit_duration.features.build import build_features
 from deposit_duration.models.econometrics import fama_macbeth, portfolio_sorts
 from deposit_duration.models.ipca import run_ipca_layer
+from deposit_duration.models.public_gates import run_public_push_gates
 from deposit_duration.models.robustness import lag_variant_robustness
 from deposit_duration.models.train import train_walk_forward
 from deposit_duration.visuals.figures import build_figures
@@ -31,6 +32,13 @@ def test_synthetic_end_to_end_pipeline(tmp_path: Path):
     assert not sorts.empty
     lag_summary = lag_variant_robustness(tmp_path / "raw", tmp_path / "lag_robustness", lags=(30, 45))
     assert set(lag_summary["lag_days"]) == {30, 45}
+    public_gates = run_public_push_gates(
+        features_path,
+        tmp_path / "public_gates",
+        first_test_year=2019,
+        last_test_year=2020,
+    )
+    assert all(Path(path).exists() for path in public_gates.values())
 
     model_dir = tmp_path / "models"
     train_walk_forward(features_path, model_dir, first_test_year=2019, last_test_year=2020, tuning_trials=2)

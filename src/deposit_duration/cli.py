@@ -12,6 +12,7 @@ from deposit_duration.models.econometrics import fama_macbeth, portfolio_sorts
 from deposit_duration.models.event_study import run_event_identification
 from deposit_duration.models.interpretability import run_interpretability
 from deposit_duration.models.ipca import run_ipca_layer
+from deposit_duration.models.public_gates import run_public_push_gates
 from deposit_duration.models.robustness import lag_variant_robustness, run_robustness
 from deposit_duration.models.train import train_walk_forward
 from deposit_duration.utils.config import project_config
@@ -120,6 +121,12 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--figures-dir", required=True)
     p.add_argument("--out-dir", required=True)
     p.add_argument("--contact-sheet", default=None)
+
+    p = sub.add_parser("public-gates")
+    p.add_argument("--features", required=True)
+    p.add_argument("--out-dir", required=True)
+    p.add_argument("--first-test-year", type=int, default=None)
+    p.add_argument("--last-test-year", type=int, default=None)
 
     p = sub.add_parser("smoke")
     p.add_argument("--out-dir", default="artifacts/smoke")
@@ -244,6 +251,17 @@ def main(argv: list[str] | None = None) -> int:
         logger.info("Visual audit written: %s (%s/%s pass)", args.out_dir, int(audit["pass"].sum()), len(audit))
         return 0
 
+    if args.cmd == "public-gates":
+        modeling = cfg["modeling"]
+        run_public_push_gates(
+            args.features,
+            args.out_dir,
+            first_test_year=args.first_test_year or int(modeling["first_test_year"]),
+            last_test_year=args.last_test_year or int(modeling["last_test_year"]),
+        )
+        logger.info("Public push-gate outputs written: %s", args.out_dir)
+        return 0
+
     if args.cmd == "smoke":
         out_dir = Path(args.out_dir)
         make_synthetic_raw(out_dir)
@@ -257,6 +275,7 @@ def main(argv: list[str] | None = None) -> int:
         robustness_dir = out_dir / "robustness"
         run_robustness(features, robustness_dir, n_placebos=25)
         lag_variant_robustness(out_dir / "raw", out_dir / "lag_robustness")
+        run_public_push_gates(features, out_dir / "public_gates", first_test_year=2019, last_test_year=2021)
         model_dir = out_dir / "models"
         train_walk_forward(
             features,
@@ -305,6 +324,12 @@ def main(argv: list[str] | None = None) -> int:
         robustness_dir = out_dir / "robustness"
         run_robustness(features, robustness_dir)
         lag_variant_robustness(out_dir / "raw", out_dir / "lag_robustness")
+        run_public_push_gates(
+            features,
+            out_dir / "public_gates",
+            first_test_year=args.first_test_year or int(cfg["modeling"]["first_test_year"]),
+            last_test_year=args.last_test_year or int(cfg["modeling"]["last_test_year"]),
+        )
         model_dir = out_dir / "models"
         modeling = cfg["modeling"]
         train_walk_forward(

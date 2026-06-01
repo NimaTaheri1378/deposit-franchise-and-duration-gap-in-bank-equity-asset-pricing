@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Deposit Duration Gap Docs</title><style>body{font-family:Arial,sans-serif;max-width:980px;margin:2rem auto;line-height:1.5}h1,h2,h3{line-height:1.2} code,pre{background:#f6f8fa;border-radius:6px}pre{padding:1rem;overflow:auto} table{border-collapse:collapse}p,li{font-size:1rem}</style></head><body><h1>Deposit Franchise and Duration Gap Documentation</h1>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Deposit Duration Gap Docs</title><style>body{font-family:Arial,sans-serif;max-width:980px;margin:2rem auto;line-height:1.5}h1,h2,h3{line-height:1.2} code,pre{background:#f6f8fa;border-radius:6px}pre{padding:1rem;overflow:auto} table{border-collapse:collapse;width:100%;margin:1rem 0}th,td{border:1px solid #ddd;padding:.4rem;text-align:left;vertical-align:top}th{background:#f6f8fa}p,li{font-size:1rem}</style></head><body><h1>Deposit Franchise and Duration Gap Documentation</h1>
 <h2>Research Object</h2>
 <p>The project studies whether bank-equity returns price the interaction between</p>
 <p>asset-side duration exposure and liability-side deposit fragility. The pipeline</p>
@@ -8,22 +8,23 @@
 <p>Raw licensed extracts are written only under ignored artifact or data folders.</p>
 <p>Public files contain code, SQL templates, configs, tests, documentation, and</p>
 <p>aggregate summaries. The live schema audit freezes WRDS physical table names</p>
-<p>into `configs/schema_map.yml`, while extraction manifests record table names,</p>
+<p>into <code>configs/schema_map.yml</code>, while extraction manifests record table names,</p>
 <p>row counts, date ranges, and output paths.</p>
 <h2>Main Artifacts</h2>
-<p>| Layer | Command | Output |</p>
-<p>|---|---|---|</p>
-<p>| Schema audit | `ddgap schema-audit` | `configs/schema_map.yml` |</p>
-<p>| Raw extraction | `ddgap extract-live` | ignored raw Parquet and manifest |</p>
-<p>| Feature store | `ddgap features` | monthly point-in-time feature panel |</p>
-<p>| Econometrics | `ddgap econometrics` | Fama-MacBeth and sort tables |</p>
-<p>| Events | `ddgap events` | March 2023 CARs and local projections |</p>
-<p>| Robustness | `ddgap robustness` | placebo, state, subperiod, double-sort checks |</p>
-<p>| ML | `ddgap train` | walk-forward predictions and metrics |</p>
-<p>| Interpretation | `ddgap interpret`, `ddgap ipca` | SHAP, PDP, family importance, factor layer |</p>
-<p>| Backtest | `ddgap backtest` | portfolio returns, weights, costs, factor alpha |</p>
-<p>| Visuals | `ddgap figures`, `ddgap visual-audit` | static and interactive figure pack |</p>
-<p>| Claim ledger | `docs/claim_ledger.md` | evidence-bound public claims and forbidden wording |</p>
+<table><thead><tr><th>Layer</th><th>Command</th><th>Output</th></tr></thead><tbody>
+<tr><td>Schema audit</td><td><code>ddgap schema-audit</code></td><td><code>configs/schema_map.yml</code></td></tr>
+<tr><td>Raw extraction</td><td><code>ddgap extract-live</code></td><td>ignored raw Parquet and manifest</td></tr>
+<tr><td>Feature store</td><td><code>ddgap features</code></td><td>monthly point-in-time feature panel</td></tr>
+<tr><td>Econometrics</td><td><code>ddgap econometrics</code></td><td>Fama-MacBeth and sort tables</td></tr>
+<tr><td>Events</td><td><code>ddgap events</code></td><td>March 2023 CARs and local projections</td></tr>
+<tr><td>Robustness</td><td><code>ddgap robustness</code></td><td>placebo, state, subperiod, double-sort checks</td></tr>
+<tr><td>Public gates</td><td><code>ddgap public-gates</code></td><td>large/liquid robustness and incremental prediction checks</td></tr>
+<tr><td>ML</td><td><code>ddgap train</code></td><td>walk-forward predictions and metrics</td></tr>
+<tr><td>Interpretation</td><td><code>ddgap interpret</code>, <code>ddgap ipca</code></td><td>SHAP, PDP, family importance, factor layer</td></tr>
+<tr><td>Backtest</td><td><code>ddgap backtest</code></td><td>portfolio returns, weights, costs, factor alpha</td></tr>
+<tr><td>Visuals</td><td><code>ddgap figures</code>, <code>ddgap visual-audit</code></td><td>static and interactive figure pack</td></tr>
+<tr><td>Claim ledger</td><td><code>docs/claim_ledger.md</code></td><td>evidence-bound public claims and forbidden wording</td></tr>
+</tbody></table>
 <h2>Empirical Discipline</h2>
 <ul>
 <li>Unit of observation: listed-bank month.</li>
@@ -34,6 +35,7 @@
 <li>Default public-information lag: 45 days.</li>
 <li>Robustness lag variants: 30, 45, and 60 days.</li>
 <li>Main inference: time-series standard errors over monthly slopes or spreads.</li>
+<li>Pre-public evidence gates: large/liquid bank-month sample and fixed nonlinear group-ablation models comparing macro/market, bank-balance, and full feature sets.</li>
 </ul>
 <h2>Visual QA</h2>
 <p>The visual pipeline writes PNG, PDF, and SVG versions of each static figure and</p>
@@ -42,17 +44,17 @@
 <p>trusted to an automated check alone.</p>
 <h2>Public Release Checklist</h2>
 <ul>
-<li>`pytest` and `ruff` pass.</li>
+<li><code>pytest</code> and <code>ruff</code> pass.</li>
 <li>CI synthetic smoke builds features, models, backtest, figures, docs, and report</li>
 </ul>
 <p>scaffold.</p>
 <ul>
-<li>`data_manifest/*_public_summary.json` contains only aggregate row counts and</li>
+<li><code>data_manifest/*_public_summary.json</code> contains only aggregate row counts and</li>
 </ul>
 <p>summary metrics.</p>
 <ul>
-<li>`figures/static/*` contains reviewed static PNG/PDF/SVG outputs.</li>
-<li>`figures/interactive/*` contains aggregate public-safe interactive outputs,</li>
+<li><code>figures/static/*</code> contains reviewed static PNG/PDF/SVG outputs.</li>
+<li><code>figures/interactive/*</code> contains aggregate public-safe interactive outputs,</li>
 </ul>
 <p>not row-level licensed data.</p>
 <ul>

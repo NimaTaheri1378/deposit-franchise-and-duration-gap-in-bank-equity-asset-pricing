@@ -22,6 +22,15 @@ def build_summary(artifacts_dir: Path) -> dict:
     portfolio = _read_csv(artifacts_dir / "backtest" / "portfolio_summary.csv")
     fm = _read_csv(artifacts_dir / "econometrics" / "fama_macbeth_summary.csv")
     robustness = _read_csv(artifacts_dir / "robustness" / "signal_spread_summary.csv")
+    large_liquid_fm = _read_csv(
+        artifacts_dir / "public_gates" / "large_liquid" / "large_liquid_fama_macbeth_summary.csv"
+    )
+    large_liquid_spreads = _read_csv(
+        artifacts_dir / "public_gates" / "large_liquid" / "large_liquid_signal_spread_summary.csv"
+    )
+    incremental_prediction = _read_csv(
+        artifacts_dir / "public_gates" / "incremental_prediction" / "incremental_prediction_summary.csv"
+    )
 
     model_metrics = {}
     if not metrics.empty:
@@ -54,6 +63,11 @@ def build_summary(artifacts_dir: Path) -> dict:
         "portfolio_summary": portfolio.to_dict("records"),
         "fama_macbeth": fm.to_dict("records"),
         "signal_spread_robustness": robustness.to_dict("records"),
+        "public_push_gates": {
+            "large_liquid_fama_macbeth": large_liquid_fm.to_dict("records"),
+            "large_liquid_signal_spreads": large_liquid_spreads.to_dict("records"),
+            "incremental_prediction": incremental_prediction.to_dict("records"),
+        },
     }
 
 

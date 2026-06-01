@@ -1,4 +1,4 @@
-.PHONY: install test lint extract synthetic features econometrics events robustness lag-robustness train interpret ipca backtest implementation-scenarios factor-alpha figures visual-audit smoke public-summary public-artifacts paper docs ci
+.PHONY: install test lint extract synthetic features econometrics events robustness lag-robustness public-gates train interpret ipca backtest implementation-scenarios factor-alpha figures visual-audit smoke public-summary public-artifacts paper docs ci
 
 install:
 	python -m pip install -e ".[all]"
@@ -29,6 +29,9 @@ robustness:
 
 lag-robustness:
 	ddgap lag-robustness --raw-dir artifacts/synthetic/raw --out-dir artifacts/synthetic/lag_robustness
+
+public-gates:
+	ddgap public-gates --features artifacts/synthetic/features.parquet --out-dir artifacts/synthetic/public_gates
 
 train:
 	ddgap train --features artifacts/synthetic/features.parquet --out-dir artifacts/synthetic/models

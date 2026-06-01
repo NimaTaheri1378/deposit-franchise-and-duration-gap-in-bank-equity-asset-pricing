@@ -38,6 +38,13 @@ meaningful, the baseline post-cost long-short portfolio is positive, and the
 factor-adjusted alpha is not yet strong enough to call this a finished
 investable-alpha result.
 
+Pre-public push gates add two useful checks. In the large/liquid half of the
+bank-month sample, the duration-gap Fama-MacBeth t-stat is about -2.97 and the
+equal-weight duration spread t-stat is about -3.34. A fixed nonlinear
+incremental-prediction gate gives the full feature set a higher mean rank IC
+than macro/market-only features, about 0.038 versus 0.027, although the decile
+spread is not uniformly better than the macro/market benchmark.
+
 ## Workflow
 
 ```mermaid
@@ -77,6 +84,7 @@ ddgap econometrics --features artifacts/synthetic/features.parquet --out-dir art
 ddgap events --features artifacts/synthetic/features.parquet --out-dir artifacts/synthetic/events
 ddgap robustness --features artifacts/synthetic/features.parquet --out-dir artifacts/synthetic/robustness
 ddgap lag-robustness --raw-dir artifacts/synthetic/raw --out-dir artifacts/synthetic/lag_robustness
+ddgap public-gates --features artifacts/synthetic/features.parquet --out-dir artifacts/synthetic/public_gates
 ddgap train --features artifacts/synthetic/features.parquet --out-dir artifacts/synthetic/models
 ddgap interpret --features artifacts/synthetic/features.parquet --out-dir artifacts/synthetic/interpretability
 ddgap ipca --features artifacts/synthetic/features.parquet --out-dir artifacts/synthetic/ipca
@@ -109,6 +117,8 @@ Implemented proposal layers include:
 - Fama-MacBeth regressions, portfolio sorts, March 2023 event study, local
   projections, state dependence, placebo tests, lag-variant robustness, and
   subperiod tests.
+- Pre-public push gates for large/liquid robustness and macro/market versus
+  bank-balance incremental prediction.
 - Elastic Net, LightGBM, and FT-Transformer walk-forward models.
 - SHAP, permutation importance, family-level importance, partial dependence,
   scenario explorer, and PCA/IPCA-style factor interpretation layer.

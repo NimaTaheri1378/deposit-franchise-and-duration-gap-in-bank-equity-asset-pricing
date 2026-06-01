@@ -5,10 +5,31 @@ import html
 from pathlib import Path
 
 
+def _inline_html(text: str) -> str:
+    parts = text.split("`")
+    rendered: list[str] = []
+    for idx, part in enumerate(parts):
+        escaped = html.escape(part)
+        if idx % 2:
+            rendered.append(f"<code>{escaped}</code>")
+        else:
+            rendered.append(escaped)
+    return "".join(rendered)
+
+
+def _table_cells(line: str) -> list[str]:
+    return [cell.strip() for cell in line.strip().strip("|").split("|")]
+
+
+def _is_table_separator(cells: list[str]) -> bool:
+    return all(cell.replace(":", "").replace("-", "") == "" and "---" in cell for cell in cells)
+
+
 def _markdownish_to_html(text: str) -> str:
     lines = text.splitlines()
     out: list[str] = []
     in_list = False
+    in_table = False
     in_code = False
     code_lines: list[str] = []
 
@@ -17,6 +38,12 @@ def _markdownish_to_html(text: str) -> str:
         if in_list:
             out.append("</ul>")
             in_list = False
+
+    def close_table() -> None:
+        nonlocal in_table
+        if in_table:
+            out.append("</tbody></table>")
+            in_table = False
 
     for line in lines:
         stripped = line.strip()
@@ -34,21 +61,41 @@ def _markdownish_to_html(text: str) -> str:
             continue
         if not stripped:
             close_list()
+            close_table()
+            continue
+        if stripped.startswith("|") and stripped.endswith("|"):
+            close_list()
+            cells = _table_cells(stripped)
+            if _is_table_separator(cells):
+                continue
+            if not in_table:
+                out.append(
+                    "<table><thead><tr>"
+                    + "".join(f"<th>{_inline_html(cell)}</th>" for cell in cells)
+                    + "</tr></thead><tbody>"
+                )
+                in_table = True
+            else:
+                out.append("<tr>" + "".join(f"<td>{_inline_html(cell)}</td>" for cell in cells) + "</tr>")
             continue
         if stripped.startswith("#"):
             close_list()
+            close_table()
             level = min(len(stripped) - len(stripped.lstrip("#")), 3)
             body = stripped[level:].strip()
             out.append(f"<h{level}>{html.escape(body)}</h{level}>")
         elif stripped.startswith("- "):
+            close_table()
             if not in_list:
                 out.append("<ul>")
                 in_list = True
-            out.append("<li>" + html.escape(stripped[2:]) + "</li>")
+            out.append("<li>" + _inline_html(stripped[2:]) + "</li>")
         else:
             close_list()
-            out.append("<p>" + html.escape(stripped) + "</p>")
+            close_table()
+            out.append("<p>" + _inline_html(stripped) + "</p>")
     close_list()
+    close_table()
     if in_code:
         out.append("<pre><code>" + html.escape("\n".join(code_lines)) + "</code></pre>")
     return "\n".join(out)
@@ -70,7 +117,9 @@ def main() -> int:
         "<title>Deposit Duration Gap Docs</title>"
         "<style>body{font-family:Arial,sans-serif;max-width:980px;margin:2rem auto;line-height:1.5}"
         "h1,h2,h3{line-height:1.2} code,pre{background:#f6f8fa;border-radius:6px}"
-        "pre{padding:1rem;overflow:auto} table{border-collapse:collapse}"
+        "pre{padding:1rem;overflow:auto} table{border-collapse:collapse;width:100%;margin:1rem 0}"
+        "th,td{border:1px solid #ddd;padding:.4rem;text-align:left;vertical-align:top}"
+        "th{background:#f6f8fa}"
         "p,li{font-size:1rem}</style></head><body>"
         + _markdownish_to_html(text)
         + "</body></html>"

@@ -155,6 +155,175 @@
       &quot;vol_monthly&quot;: 0.017137078191698
     }
   ],
+  &quot;public_push_gates&quot;: {
+    &quot;incremental_prediction&quot;: [
+      {
+        &quot;decile_spread_months&quot;: 107,
+        &quot;decile_spread_nw_se&quot;: 0.0034572949676609,
+        &quot;decile_spread_t_stat&quot;: 2.408625673685675,
+        &quot;feature_group&quot;: &quot;full&quot;,
+        &quot;mean_decile_10_minus_1&quot;: 0.0083273294206125,
+        &quot;mean_feature_count&quot;: 26.0,
+        &quot;mean_spearman_ic&quot;: 0.0383206607062558,
+        &quot;median_spearman_ic&quot;: 0.0765010401493982,
+        &quot;test_years&quot;: 9
+      },
+      {
+        &quot;decile_spread_months&quot;: 107,
+        &quot;decile_spread_nw_se&quot;: 0.0032759801946335,
+        &quot;decile_spread_t_stat&quot;: 2.664889068874972,
+        &quot;feature_group&quot;: &quot;macro_market&quot;,
+        &quot;mean_decile_10_minus_1&quot;: 0.0087301238105299,
+        &quot;mean_feature_count&quot;: 11.0,
+        &quot;mean_spearman_ic&quot;: 0.0265998909990135,
+        &quot;median_spearman_ic&quot;: 0.0407536718070822,
+        &quot;test_years&quot;: 9
+      },
+      {
+        &quot;decile_spread_months&quot;: 107,
+        &quot;decile_spread_nw_se&quot;: 0.0025139193215585,
+        &quot;decile_spread_t_stat&quot;: 0.1828938043064747,
+        &quot;feature_group&quot;: &quot;bank_balance&quot;,
+        &quot;mean_decile_10_minus_1&quot;: 0.0004597802684393,
+        &quot;mean_feature_count&quot;: 10.0,
+        &quot;mean_spearman_ic&quot;: 0.0117311923009741,
+        &quot;median_spearman_ic&quot;: 0.0070299390432561,
+        &quot;test_years&quot;: 9
+      }
+    ],
+    &quot;large_liquid_fama_macbeth&quot;: [
+      {
+        &quot;mean_coef&quot;: 0.009384184009516,
+        &quot;months&quot;: 252,
+        &quot;nw_se&quot;: 0.0092120704847779,
+        &quot;t_stat&quot;: 1.0186834789228432,
+        &quot;term&quot;: &quot;const&quot;
+      },
+      {
+        &quot;mean_coef&quot;: -0.0097669230859736,
+        &quot;months&quot;: 252,
+        &quot;nw_se&quot;: 0.0032920503685868,
+        &quot;t_stat&quot;: -2.966820671752392,
+        &quot;term&quot;: &quot;duration_gap_proxy&quot;
+      },
+      {
+        &quot;mean_coef&quot;: -0.0022308304158899,
+        &quot;months&quot;: 252,
+        &quot;nw_se&quot;: 0.0011496257569299,
+        &quot;t_stat&quot;: -1.94048402485988,
+        &quot;term&quot;: &quot;deposit_fragility_index&quot;
+      },
+      {
+        &quot;mean_coef&quot;: 0.0064756984062683,
+        &quot;months&quot;: 252,
+        &quot;nw_se&quot;: 0.0072844374969244,
+        &quot;t_stat&quot;: 0.8889771391411474,
+        &quot;term&quot;: &quot;duration_x_uninsured&quot;
+      },
+      {
+        &quot;mean_coef&quot;: -0.0004578688510405,
+        &quot;months&quot;: 252,
+        &quot;nw_se&quot;: 0.0005468335407981,
+        &quot;t_stat&quot;: -0.8373093764005469,
+        &quot;term&quot;: &quot;log_market_cap&quot;
+      },
+      {
+        &quot;mean_coef&quot;: 0.0089376092717014,
+        &quot;months&quot;: 252,
+        &quot;nw_se&quot;: 0.0185439131026857,
+        &quot;t_stat&quot;: 0.4819699716133276,
+        &quot;term&quot;: &quot;capital_ratio&quot;
+      },
+      {
+        &quot;mean_coef&quot;: -0.0049789389138476,
+        &quot;months&quot;: 252,
+        &quot;nw_se&quot;: 0.0027194704982836,
+        &quot;t_stat&quot;: -1.830848658586324,
+        &quot;term&quot;: &quot;cre_to_assets&quot;
+      },
+      {
+        &quot;mean_coef&quot;: 0.0035615127670379,
+        &quot;months&quot;: 252,
+        &quot;nw_se&quot;: 0.0023578687454017,
+        &quot;t_stat&quot;: 1.5104796541298378,
+        &quot;term&quot;: &quot;market_beta&quot;
+      }
+    ],
+    &quot;large_liquid_signal_spreads&quot;: [
+      {
+        &quot;mean_monthly_spread&quot;: -0.004179814353276,
+        &quot;months&quot;: 259,
+        &quot;nw_se&quot;: 0.0012518201245631,
+        &quot;signal&quot;: &quot;duration_gap_proxy&quot;,
+        &quot;t_stat&quot;: -3.33898958105888,
+        &quot;test&quot;: &quot;signal_spread&quot;,
+        &quot;weighting&quot;: &quot;equal&quot;
+      },
+      {
+        &quot;mean_monthly_spread&quot;: -0.0056907899991602,
+        &quot;months&quot;: 259,
+        &quot;nw_se&quot;: 0.0027161895802807,
+        &quot;signal&quot;: &quot;duration_gap_proxy&quot;,
+        &quot;t_stat&quot;: -2.095137261579514,
+        &quot;test&quot;: &quot;signal_spread&quot;,
+        &quot;weighting&quot;: &quot;value&quot;
+      },
+      {
+        &quot;mean_monthly_spread&quot;: -0.0026387426089546,
+        &quot;months&quot;: 259,
+        &quot;nw_se&quot;: 0.0011520451173263,
+        &quot;signal&quot;: &quot;deposit_fragility_index&quot;,
+        &quot;t_stat&quot;: -2.290485476019036,
+        &quot;test&quot;: &quot;signal_spread&quot;,
+        &quot;weighting&quot;: &quot;equal&quot;
+      },
+      {
+        &quot;mean_monthly_spread&quot;: -0.0028050658871394,
+        &quot;months&quot;: 259,
+        &quot;nw_se&quot;: 0.0017552162819078,
+        &quot;signal&quot;: &quot;deposit_fragility_index&quot;,
+        &quot;t_stat&quot;: -1.5981311910406852,
+        &quot;test&quot;: &quot;signal_spread&quot;,
+        &quot;weighting&quot;: &quot;value&quot;
+      },
+      {
+        &quot;mean_monthly_spread&quot;: -0.0021583993438732,
+        &quot;months&quot;: 259,
+        &quot;nw_se&quot;: 0.0010435060647971,
+        &quot;signal&quot;: &quot;duration_x_uninsured&quot;,
+        &quot;t_stat&quot;: -2.0684109241787203,
+        &quot;test&quot;: &quot;signal_spread&quot;,
+        &quot;weighting&quot;: &quot;equal&quot;
+      },
+      {
+        &quot;mean_monthly_spread&quot;: -0.0028887387573249,
+        &quot;months&quot;: 259,
+        &quot;nw_se&quot;: 0.0021299116691428,
+        &quot;signal&quot;: &quot;duration_x_uninsured&quot;,
+        &quot;t_stat&quot;: -1.356271623455394,
+        &quot;test&quot;: &quot;signal_spread&quot;,
+        &quot;weighting&quot;: &quot;value&quot;
+      },
+      {
+        &quot;mean_monthly_spread&quot;: -0.003311865743602,
+        &quot;months&quot;: 259,
+        &quot;nw_se&quot;: 0.001382886506975,
+        &quot;signal&quot;: &quot;duration_x_fragility&quot;,
+        &quot;t_stat&quot;: -2.394893381993099,
+        &quot;test&quot;: &quot;signal_spread&quot;,
+        &quot;weighting&quot;: &quot;equal&quot;
+      },
+      {
+        &quot;mean_monthly_spread&quot;: -0.003877937163562,
+        &quot;months&quot;: 259,
+        &quot;nw_se&quot;: 0.0028611044519574,
+        &quot;signal&quot;: &quot;duration_x_fragility&quot;,
+        &quot;t_stat&quot;: -1.3553986681293693,
+        &quot;test&quot;: &quot;signal_spread&quot;,
+        &quot;weighting&quot;: &quot;value&quot;
+      }
+    ]
+  },
   &quot;signal_spread_robustness&quot;: [
     {
       &quot;mean_monthly_spread&quot;: -0.0052310418456204,
