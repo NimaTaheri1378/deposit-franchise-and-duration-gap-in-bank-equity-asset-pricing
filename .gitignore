@@ -24,12 +24,12 @@ venv/
 *.egg-info/
 
 # Research data and licensed artifacts
-data/
-raw/
-processed/
-cache/
-artifacts/
-logs/
+/data/
+/raw/
+/processed/
+/cache/
+/artifacts/
+/logs/
 *.parquet
 *.feather
 *.h5
@@ -42,9 +42,9 @@ logs/
 *.onnx
 
 # Generated outputs that may contain licensed-derived results
-figures/static/*
-figures/interactive/*
-data_manifest/*
+/figures/static/*
+/figures/interactive/*
+/data_manifest/*
 !figures/static/.gitkeep
 !figures/interactive/.gitkeep
 !data_manifest/.gitkeep
