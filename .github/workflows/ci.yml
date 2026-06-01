@@ -21,6 +21,8 @@ jobs:
         run: python -m ruff check src tests scripts
       - name: Tests
         run: python -m pytest -q
+      - name: Release audit
+        run: python scripts/release_audit.py
       - name: Synthetic smoke
         run: ddgap smoke --out-dir artifacts/ci_smoke
       - name: Public-safe summary

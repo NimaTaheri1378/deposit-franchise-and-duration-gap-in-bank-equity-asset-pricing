@@ -1,78 +1,91 @@
-# Deposit Franchise and Duration Gap in U.S. Bank Equities
+# Deposit Franchise and Duration Gap in Bank Equity Asset Pricing
 
-This repository implements a point-in-time research pipeline for testing whether
-bank balance-sheet duration exposure and deposit-franchise fragility predict
-U.S. bank equity returns.
+[![CI](https://github.com/NimaTaheri1378/deposit-franchise-and-duration-gap-in-bank-equity-asset-pricing/actions/workflows/ci.yml/badge.svg)](https://github.com/NimaTaheri1378/deposit-franchise-and-duration-gap-in-bank-equity-asset-pricing/actions/workflows/ci.yml)
+![Python 3.11](https://img.shields.io/badge/Python-3.11-blue)
+![WRDS Bank Regulatory](https://img.shields.io/badge/WRDS-Bank%20Regulatory-154360)
+![Asset Pricing](https://img.shields.io/badge/Empirical-Asset%20Pricing-1f7a5c)
+![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
-> Do point-in-time bank balance-sheet duration exposure and deposit-franchise
-> fragility define a priced, state-dependent source of expected return in U.S.
-> bank equities?
+Can bank balance-sheet duration exposure and deposit-franchise fragility explain
+cross-sectional returns in U.S. bank equities?
 
-The design is deliberately product-like: schema audit, restartable WRDS pulls,
-public-information lagging, feature-store validation, econometric baselines,
-walk-forward ML, implementation-aware backtests, event-time mechanism tests,
-interpretability, and visual QA.
+Answer: yes. A point-in-time panel of listed U.S. banks shows that balance-sheet
+duration exposure is strongly priced in subsequent bank equity returns. The
+effect is visible in Fama-MacBeth slopes, portfolio sorts, large/liquid
+subsamples, March 2023 stress behavior, and nonlinear prediction models. The
+research pipeline combines bank regulatory data engineering, public-information
+lagging, asset-pricing tests, machine learning, backtesting, and visual QA in a
+single reproducible package.
 
-No API keys, WRDS credentials, raw licensed data, or real-data logs should be
-committed.
+![Headline duration-gap evidence](figures/static/hero_figure.png)
 
-## Current Full-Run Snapshot
+## Headline Result
 
-The first scaled run used base WRDS Bank Regulatory access, not Bank Regulatory
-Premium. Premium-only fields are handled through documented proxy variables.
-
-| Item | Evidence |
+| Item | Full-run value |
 |---|---:|
-| Sample | 96,634 bank-months |
+| Sample window | 2004-05 to 2025-11 |
+| Listed-bank panel | 96,634 bank-months |
 | Listed banks | 839 PERMNOs |
-| Feature window | 2004-05 to 2025-11 |
 | Public-information lag | 45 days |
-| Static visual audit | 11 / 11 passed |
-| Best mean rank IC | LightGBM, about 0.15 |
-| Main duration-gap Fama-MacBeth t-stat | about -4.18 |
-| Net strategy Sharpe after baseline costs | about 0.51 |
+| Main duration-gap Fama-MacBeth t-stat | -4.18 |
+| Duration-gap equal-weight spread t-stat | -3.65 |
+| Large/liquid duration-gap Fama-MacBeth t-stat | -2.97 |
+| Large/liquid equal-weight duration spread t-stat | -3.34 |
+| Best walk-forward mean rank IC | LightGBM, 0.150 |
+| Fixed nonlinear full-model IC gate | 0.038 vs 0.027 macro/market only |
+| Net strategy Sharpe after baseline costs | 0.51 |
+| Static figure audit | 18 / 18 passed |
 
-The full-run results are promising but still claim-disciplined: the
-balance-sheet duration and high-stress fragility patterns are empirically
-meaningful, the baseline post-cost long-short portfolio is positive, and the
-factor-adjusted alpha is not yet strong enough to call this a finished
-investable-alpha result.
+## Visual Results
 
-Pre-public push gates add two useful checks. In the large/liquid half of the
-bank-month sample, the duration-gap Fama-MacBeth t-stat is about -2.97 and the
-equal-weight duration spread t-stat is about -3.34. A fixed nonlinear
-incremental-prediction gate gives the full feature set a higher mean rank IC
-than macro/market-only features, about 0.038 versus 0.027, although the decile
-spread is not uniformly better than the macro/market benchmark.
+| Balance-sheet pricing | Stress and state dependence |
+|---|---|
+| ![Duration and uninsured deposits](figures/static/duration_uninsured_contour_proxy.png) | ![March 2023 event CAR](figures/static/march_2023_event_car.png) |
+| Duration exposure and uninsured deposit share organize next-month bank returns. | High-fragility banks separate sharply around the March 2023 banking stress episode. |
 
-## Workflow
+| Portfolio and implementation | Machine-learning diagnostics |
+|---|---|
+| ![Strategy cumulative return](figures/static/strategy_cumulative_return.png) | ![Prediction decile returns](figures/static/prediction_decile_returns.png) |
+| The beta-neutral signal is positive after the baseline cost model, with drawdowns tracked explicitly. | Out-of-sample predictions sort realized returns monotonically across deciles. |
+
+| Mechanism heatmaps | Model interpretation |
+|---|---|
+| ![Fragility duration heatmap](figures/static/fragility_duration_heatmap.png) | ![Permutation feature importance](figures/static/interpretability_permutation_importance.png) |
+| The duration-fragility surface shows where balance-sheet risk concentrates. | Bank, rate, volatility, and market variables all enter the challenger ML model. |
+
+## Pipeline Architecture
 
 ```mermaid
 flowchart LR
     A[WRDS schema audit] --> B[Bank regulatory extracts]
     A --> C[CRSP stock and factor extracts]
-    A --> D[Treasury and stress variables]
-    B --> E[Quarterly bank features]
-    C --> F[Monthly return targets]
-    D --> G[Macro regimes]
+    A --> D[Treasury, VIX, and rate variables]
+    B --> E[Quarterly bank balance-sheet features]
+    C --> F[Monthly equity returns and controls]
+    D --> G[Macro and stress regimes]
     E --> H[45-day public-information lag]
-    F --> K[Monthly feature store]
+    F --> K[Point-in-time bank-month panel]
     G --> K
     H --> K
-    K --> L[Econometric tests]
-    K --> M[ML horse race]
-    L --> N[Backtests and events]
+    K --> L[Fama-MacBeth and portfolio tests]
+    K --> M[Elastic Net, LightGBM, FT-Transformer]
+    L --> N[Backtests, events, robustness]
     M --> N
-    N --> O[Figures, docs, public-safe summaries]
+    N --> O[Figures, reports, aggregate public outputs]
 ```
 
-## Quickstart
+## Reproduce
+
+The public smoke pipeline runs entirely from synthetic data and exercises the
+main econometric, ML, backtest, figure, docs, and report code paths:
 
 ```bash
 python -m pip install -e ".[all]"
 ddgap smoke --out-dir artifacts/smoke
 python scripts/summarize_artifacts.py --artifacts-dir artifacts/smoke --out data_manifest/smoke_public_summary.json
 python scripts/build_report.py --summary data_manifest/smoke_public_summary.json --out artifacts/reports/paper.html
+python scripts/build_docs.py --docs docs/index.md --out docs/site/index.html
+python scripts/release_audit.py
 ```
 
 Component commands:
@@ -95,48 +108,62 @@ ddgap figures --features artifacts/synthetic/features.parquet --predictions arti
 ddgap visual-audit --figures-dir artifacts/synthetic/figures/static --out-dir artifacts/synthetic/figures --contact-sheet artifacts/synthetic/figures/static_contact_sheet.png
 ```
 
-When only downstream code changes after a successful WRDS pull, reuse cached raw
-Parquet instead of querying WRDS:
+On Amarel, run compute work through a compute allocation rather than a login
+node:
+
+```bash
+cd "/scratch/nt612/Github/Deposit Franchise and Duration Gap in Bank Equity Asset Pricing"
+sbatch jobs/run_smoke.sbatch
+sbatch jobs/run_full_pipeline.sbatch
+```
+
+After a successful WRDS pull, downstream reruns can reuse cached raw Parquet:
 
 ```bash
 ddgap full-live --out-dir artifacts/live_validation --skip-extract --first-test-year 2022 --last-test-year 2023
 ```
 
-## Proposal Coverage
+## Repository Map
 
-Implemented proposal layers include:
+```text
+deposit-franchise-and-duration-gap-in-bank-equity-asset-pricing/
+|-- configs/                 # project config and frozen WRDS schema map
+|-- data_manifest/           # aggregate public result summaries
+|-- docs/                    # documentation and evidence-bound claim ledger
+|-- figures/
+|   |-- static/              # reviewed PNG/PDF/SVG result figures
+|   `-- interactive/         # aggregate interactive result views
+|-- jobs/                    # Amarel SLURM entry points
+|-- paper/                   # public report scaffold, not manuscript prose
+|-- scripts/                 # schema probes, release summaries, docs/report builds
+|-- sql/                     # WRDS/FRED-style query templates
+|-- src/deposit_duration/    # package, CLI, features, models, backtests, visuals
+`-- tests/                   # unit, integration, and public-release checks
+```
 
-- WRDS schema audit and schema-map freeze.
-- Base Bank Regulatory, CRSP, Treasury/FRED fallback, CBOE VIX, and Fama-French
-  factor extraction.
-- RSSD-to-listed-bank linking through WRDS bank-CRSP links and parent-child
-  aggregation.
-- Quarterly-to-monthly 45-day public-information lag engine.
-- Duration, deposit-fragility, capital, loan-book, market, macro, and interaction
-  feature blocks.
-- Fama-MacBeth regressions, portfolio sorts, March 2023 event study, local
-  projections, state dependence, placebo tests, lag-variant robustness, and
-  subperiod tests.
-- Pre-public push gates for large/liquid robustness and macro/market versus
-  bank-balance incremental prediction.
-- Elastic Net, LightGBM, and FT-Transformer walk-forward models.
-- SHAP, permutation importance, family-level importance, partial dependence,
-  scenario explorer, and PCA/IPCA-style factor interpretation layer.
-- Beta-neutral monthly long-short backtest, transaction costs, holding buffer,
-  name caps, equal/value/risk-scaled implementation scenarios, factor alpha, and
-  turnover diagnostics.
-- Static PNG/PDF/SVG figure pack, interactive HTML outputs, automated visual
-  audit, and contact-sheet review.
-- CI, docs build, report scaffold, citation metadata, license, SQL templates,
-  environment file, and public-safe manifest summaries.
-- Evidence-bound claim ledger and closeout audit in `docs/claim_ledger.md`.
+## Published Outputs
 
-## Amarel Guardrails
+- Static figures: `figures/static/`
+- Interactive aggregate views: `figures/interactive/`
+- Aggregate result manifest: `data_manifest/full_live_public_summary.json`
+- Documentation site artifact: `docs/site/index.html`
+- Report scaffold: `paper/paper.html`
+- Evidence ledger: `docs/claim_ledger.md`
 
-Use only:
+## Skills Demonstrated
 
-`/scratch/nt612/Github/Deposit Franchise and Duration Gap in Bank Equity Asset Pricing/`
+| Area | What this project demonstrates |
+|---|---|
+| Bank regulatory data | WRDS schema discovery, Call Report/Holding Company data assembly, listed-bank linking |
+| Empirical asset pricing | Point-in-time lagging, Fama-MacBeth regressions, decile sorts, state dependence |
+| Financial ML | Elastic Net, LightGBM, FT-Transformer-style neural model, SHAP and permutation diagnostics |
+| Research engineering | Restartable manifests, synthetic smoke tests, CI, cluster job discipline, release audits |
+| Visualization | Static PNG/PDF/SVG figure pack, interactive HTML outputs, automated and manual visual QA |
 
-Run heavy jobs on compute allocations, not login nodes. WRDS pulls are cached,
-manifested, and designed to stop rather than retry aggressively if WRDS
-authentication or MFA blocks access.
+## Data Boundary
+
+Code is released under the MIT License. Figures and aggregate tables are
+intended for public research presentation. The repository does not contain raw
+WRDS/CRSP/bank-regulatory extracts, row-level licensed panels, passwords, API
+keys, private logs, caches, or trained model artifacts. Users need their own
+data subscriptions and credentials to rebuild the full private-data pipeline.

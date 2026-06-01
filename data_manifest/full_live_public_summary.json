@@ -374,8 +374,8 @@
     }
   ],
   "visual_audit": {
-    "figures": 11,
-    "passed": 11
+    "figures": 18,
+    "passed": 18
   },
   "wrds_tables": [
     "bank_all.wrds_bank_crsp_link",

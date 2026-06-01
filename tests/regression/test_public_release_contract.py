@@ -34,11 +34,15 @@ def test_project_config_freezes_sample_and_lags():
     assert cfg["project"]["lag_robustness_days"] == [30, 45, 60]
 
 
-def test_readme_states_research_question_and_safety_contract():
+def test_readme_states_research_question_results_and_data_boundary():
     text = (ROOT / "README.md").read_text(encoding="utf-8")
-    assert "Do point-in-time bank balance-sheet duration exposure" in text
-    assert "No API keys, WRDS credentials, raw licensed data" in text
-    assert "factor-adjusted alpha is not yet strong enough" in text
+    flat_text = " ".join(text.split())
+    assert "Can bank balance-sheet duration exposure" in text
+    assert "Answer: yes." in text
+    assert "Main duration-gap Fama-MacBeth t-stat" in text
+    assert "figures/static/hero_figure.png" in text
+    assert "raw WRDS/CRSP/bank-regulatory extracts" in flat_text
+    assert "passwords, API keys, private logs" in flat_text
 
 
 def test_docs_build_script_supports_file_output(tmp_path):
@@ -55,3 +59,16 @@ def test_docs_build_script_supports_file_output(tmp_path):
         sys.argv = old_argv
     assert out.exists()
     assert "<h1>" in out.read_text(encoding="utf-8")
+
+
+def test_release_audit_passes():
+    from scripts.release_audit import main
+
+    import sys
+
+    old_argv = sys.argv
+    try:
+        sys.argv = ["release_audit.py"]
+        assert main() == 0
+    finally:
+        sys.argv = old_argv
