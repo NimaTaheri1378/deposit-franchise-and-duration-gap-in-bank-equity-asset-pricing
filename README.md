@@ -34,7 +34,6 @@ single reproducible package.
 | Best walk-forward mean rank IC | LightGBM, 0.150 |
 | Fixed nonlinear full-model IC gate | 0.038 vs 0.027 macro/market only |
 | Net strategy Sharpe after baseline costs | 0.51 |
-| Static figure audit | 18 / 18 passed |
 
 ## Visual Results
 
