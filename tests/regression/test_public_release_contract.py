@@ -61,6 +61,15 @@ def test_docs_build_script_supports_file_output(tmp_path):
     assert "<h1>" in out.read_text(encoding="utf-8")
 
 
+def test_summary_reader_treats_empty_optional_csv_as_empty(tmp_path):
+    from scripts.summarize_artifacts import _read_csv
+
+    empty = tmp_path / "empty.csv"
+    empty.write_text("", encoding="utf-8")
+    assert _read_csv(empty).empty
+    assert _read_csv(tmp_path / "missing.csv").empty
+
+
 def test_release_audit_passes():
     from scripts.release_audit import main
 
